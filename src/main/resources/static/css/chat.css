@@ -1,0 +1,20 @@
+.bt-send{
+    width: 20%;
+}
+.bt-x{
+    width: 10%;
+}
+#text-con{
+    width: 70%;
+}
+input[type="button"]{
+    width: 100%;
+ }
+#list{
+    BORDER-RIGHT: 7px groove;
+    BORDER-TOP: 7px groove;
+    BACK-GROUND: transprant;
+    BORDER-LEFT: 7px groove;
+    BORDER-BOTTOM: 7px groove;
+    text-align:left;
+}
