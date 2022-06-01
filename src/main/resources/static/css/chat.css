@@ -1,20 +1,147 @@
 .bt-send{
     width: 20%;
+    float: left;
 }
-.bt-x{
+.bt-xxx{
     width: 10%;
+    float: left;
+}
+div {
+    word-wrap: break-word;
+}
+div::-webkit-scrollbar {
+    margin: 0;
+    width: 3px;
+}
+div::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb {
+    background: rgb(120, 120, 120);
+    border-radius: 5px;
+}
+div::-webkit-scrollbar-track, body::-webkit-scrollbar-track {
+    background: rgb(200, 200, 200);
+    border-radius: 5px;
+}
+li {
+    text-align: -webkit-match-parent;
+}
+.list-group-horizontal .list-group-item {
+    display: inline-block;
+}
+.list-group-horizontal .list-group-item {
+    margin-bottom: 0;
+    margin-left:-4px;
+    margin-right: 0;
+}
+.list-group-horizontal .list-group-item:first-child {
+    border-top-right-radius:0;
+    border-bottom-left-radius:4px;
+}
+.list-group-horizontal .list-group-item:last-child {
+    border-top-right-radius:4px;
+    border-bottom-left-radius:0;
+}
+.list-group-item{
+    margin-left: 0px;
+}
+#func .list-group-item{
+    width: 50%;
+    text-align: center;
+}
+#input .btn{
+    padding: 12px 18px;
+}
+#input .form-control{
+    padding: 22px 18px;
+}
+.my-content{
+    background-color: #cbcbcb;
+    text-align:left;
+    overflow-y: auto;
+    height: 550px;
+}
+.my-friend{
+    overflow-y: auto;
+    background-color: #e0e0e0;
+    text-align:left;
+    padding: 10px 30px 10px 30px;
+    height: 650px;
+}
+.a-friend{
+    background-color: white;
+    height: 80px;
+}
+.f-pic{
+    line-height: 80px;
+}
+.f-pic img{
+    width: 60px;
+    height: 60px;
+}
+.f-info{
+    height: 100%;
+}
+.f-name{
+    font-weight: bold;
+    width: 100%;
+    height: 50%;
+    line-height: 40px;
+    float: left;
+}
+.f-news{
+    width: 100%;
+    height: 50%;
+    line-height: 40px;
+    float: left;
+}
+.lined{
+    padding-top: 30px;
+    text-align: center;
+
+}
+.linet{
+
+}
+.c-msg{
+    line-height: 35px;
+    border: 2px solid #e0e0e0;
+    background: #e0e0e0;
+    position: relative;
+    max-width: 90%;
+    margin: 0px 8px 0 8px;
+    border-radius: 5px;
+    padding: 4px 9px 4px 10px;
+    font-size: 100%;
+    float: left;
+}
+.c-msg::before {
+    left: -16px;
+    border: 8px solid transparent;
+    border-right-color: #e0e0e0;
+}
+.c-pic{
+    float: left;
+}
+.c-pic img{
+    width: 50px;
+    height: 50px;
 }
 #text-con{
+    overflow-y: auto;
+    -webkit-user-modify: read-write-plaintext-only;
+    background-color: rgba(255,255,255,.8);
+    padding: 10px 3px 0px 3px;
+    border: 1px #e0e0e0 solid;
+    border-right: 0px;
+    border-left: 0px;
+    height: 30px;
+    line-height: 20px;
     width: 70%;
+    float: left;
 }
-input[type="button"]{
-    width: 100%;
- }
-#list{
-    BORDER-RIGHT: 7px groove;
-    BORDER-TOP: 7px groove;
-    BACK-GROUND: transprant;
-    BORDER-LEFT: 7px groove;
-    BORDER-BOTTOM: 7px groove;
-    text-align:left;
+#text-con img{
+    width: 25px;
+
+}
+#text-con, #text-con img {
+    vertical-align: middle;
 }

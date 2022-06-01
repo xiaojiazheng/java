@@ -1,5 +1,7 @@
 package com.xiaojz.chatroom.Service;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.websocket.*;
@@ -7,6 +9,8 @@ import javax.websocket.*;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.server.ServerEndpoint;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -53,7 +57,29 @@ public class MyWebsocketServer {
     @OnMessage
     public void onMessage(String message) {
         log.info("服务端收到客户端发来的消息: {}", message);
-        this.sendAll(message);
+        if(isJSON(message)){
+            JSONObject jsonObj = JSON.parseObject(message);
+            switch (jsonObj.getString("cmd")){
+                case "sendMsg":{
+                    String name = jsonObj.getJSONObject("data").getString("name");
+                    String msg = jsonObj.getJSONObject("data").getString("msg");
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("cmd","addMsg");
+                    JSONObject jsonObject1 = new JSONObject();
+                    jsonObject1.put("name",name);
+                    jsonObject1.put("msg",msg);
+                    jsonObject.put("data",jsonObject1);
+
+                    this.sendAll(jsonObject.toJSONString());
+                    break;
+                }
+                default:
+                    this.sendAll("{ cmd:morengs }");
+                    break;
+            }
+        }
+        else
+            this.sendAll("格式非法");
     }
 
     /**
@@ -64,5 +90,17 @@ public class MyWebsocketServer {
         for (Map.Entry<String, Session> sessionEntry : clients.entrySet()) {
             sessionEntry.getValue().getAsyncRemote().sendText(message);
         }
+    }
+
+    public static boolean isJSON(String str) {
+        boolean result;
+        try {
+            Object obj=JSON.parse(str);
+            result = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = false;
+        }
+        return result;
     }
 }
