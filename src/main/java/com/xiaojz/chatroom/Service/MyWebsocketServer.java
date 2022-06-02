@@ -22,11 +22,13 @@ public class MyWebsocketServer {
      * 存放所有在线的客户端
      */
     private static Map<String, Session> clients = new ConcurrentHashMap<>();
+    private String NowUser;
 
     @OnOpen
     public void onOpen(Session session) {
         log.info("有新的客户端连接了: {}", session.getId());
         //将新用户存入在线的组
+        NowUser = session.getId();
         clients.put(session.getId(), session);
     }
 
@@ -73,6 +75,31 @@ public class MyWebsocketServer {
                     this.sendAll(jsonObject.toJSONString());
                     break;
                 }
+                case "creatOneChat":{
+                    String name = jsonObj.getJSONObject("data").getString("name");
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("cmd","keepOneChat");
+                    JSONObject jsonObject1 = new JSONObject();
+                    jsonObject1.put("name",name);
+                    jsonObject1.put("id",NowUser);
+                    jsonObject.put("data",jsonObject1);
+                    this.sendOne(jsonObject.toJSONString(),NowUser);
+                    break;
+                }
+                case "sendOneMsg":{
+                    String name = jsonObj.getJSONObject("data").getString("name");
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("cmd","addOneMsg");
+                    JSONObject jsonObject1 = new JSONObject();
+                    jsonObject1.put("name",name);
+                    jsonObject1.put("msg",name);
+                    jsonObject.put("data",jsonObject1);
+                    this.sendOne(jsonObject.toJSONString(),NowUser);
+                    /*
+                    补充发送给目标客户端
+                     */
+                    break;
+                }
                 default:
                     this.sendAll("{ cmd:morengs }");
                     break;
@@ -89,6 +116,14 @@ public class MyWebsocketServer {
     private void sendAll(String message) {
         for (Map.Entry<String, Session> sessionEntry : clients.entrySet()) {
             sessionEntry.getValue().getAsyncRemote().sendText(message);
+        }
+    }
+
+    private void sendOne(String message,String One) {
+        for (Map.Entry<String, Session> sessionEntry : clients.entrySet()) {
+            if(sessionEntry.getKey().equals( One )){
+                sessionEntry.getValue().getAsyncRemote().sendText(message);
+            }
         }
     }
 
